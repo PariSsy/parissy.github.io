@@ -1,0 +1,6 @@
+---
+title: "Blog"
+subtitle: Data Science & English Teaching for ESL Students
+---
+
+### This is my blog post page.
