@@ -1,10 +1,8 @@
-name: "Yay internet!"
+name: "Paris Zhang"
 output_dir: "."
 navbar:
   title: "Home"
   left:
-    - text: "Teaching"
-      href: teaching.html
     - text: "Blog"
       href: blog.html
   right:

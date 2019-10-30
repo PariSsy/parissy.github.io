@@ -16,11 +16,15 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
@@ -71,6 +75,7 @@ h6 {
 }
 </style>
 
+<link rel="stylesheet" href="preamble.css" type="text/css" />
 
 
 
@@ -105,33 +110,33 @@ summary {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 51px;
+  padding-top: 66px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 71px;
+  margin-top: -71px;
 }
 .dropdown-submenu {
   position: relative;
@@ -247,7 +252,67 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
 
 
 
@@ -257,6 +322,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -274,9 +349,6 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="teaching.html">Teaching</a>
-</li>
-<li>
   <a href="blog.html">Blog</a>
 </li>
       </ul>
@@ -312,20 +384,65 @@ $(document).ready(function () {
 
 <div class="fluid-row" id="header">
 
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">Blog</h1>
-<h3 class="subtitle">Data Science &amp; English Teaching for ESL Students</h3>
 
 </div>
 
 
-<div id="this-is-my-blog-post-page." class="section level3">
-<h3>This is my blog post page.</h3>
+<div id="data-science" class="section level1">
+<h1>Data Science</h1>
+<div id="r" class="section level3">
+<h3>R</h3>
+<div id="beginners-guide-recreating-deadest-names-plot-of-fivethirtyeight-using-ggplot2" class="section level4">
+<h4>Beginner’s Guide: Recreating “Deadest Names” Plot of FiveThirtyEight Using <code>ggplot2</code></h4>
+<p><strong>Intro</strong>: This is an R lab project from Data Science 1 of the master’s program in biostats and data science at Weill Cornell, taught by <a href="https://emsweene.github.io/index.html">Dr. Elizabeth Sweeney</a>.<br />
+<strong>Goal</strong>: In 1.5 hours, we’d like to reproduce a plot <a href="https://fivethirtyeight.com/features/how-to-tell-someones-age-when-all-you-know-is-her-name/">Deadest Names published on FiveThirtyEight</a>. You may find the original prompt <a href="files/Lab_1_question.pdf">here</a>.</p>
+<div class="column-left">
+
+</div>
+<div id="original" class="section level4">
+<h4>Original</h4>
+Placeholder - pic 1 
+<div class="column-right">
+<h4 id="duplicate">Duplicate</h4>
+<p>Placeholder - pic 2 </p>
+</div>
+</div>
+</div>
+</div>
+<div id="english-learning" class="section level1">
+<h1>English Learning</h1>
+<div id="course-offerings" class="section level3">
+<h3>Course Offerings</h3>
+<div id="section" class="section level4">
+<h4>美国人都会的2000词</h4>
+</div>
+<div id="section-1" class="section level4">
+<h4>美音开口练</h4>
+</div>
+<div id="toefl" class="section level4">
+<h4>TOEFL口语话题王</h4>
+</div>
+<div id="section-2" class="section level4">
+<h4>常用短语句型听力初级</h4>
+</div>
+</div>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -357,7 +474,38 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

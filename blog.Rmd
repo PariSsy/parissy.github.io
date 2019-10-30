@@ -1,6 +1,45 @@
 ---
 title: "Blog"
-subtitle: Data Science & English Teaching for ESL Students
+output: 
+  html_document: 
+    code_folding: show
+    theme: readable
+    toc: yes
+    toc_depth: 5
+    toc_float: true
+    css: preamble.css
+editor_options: 
+  chunk_output_type: inline
 ---
 
-### This is my blog post page.
+# Data Science
+
+### R
+
+#### Beginner's Guide: Recreating "Deadest Names" Plot of FiveThirtyEight Using `ggplot2`
+
+**Intro**: This is an R lab project from Data Science 1 of the master's program in biostats and data science at Weill Cornell, taught by [Dr. Elizabeth Sweeney](https://emsweene.github.io/index.html).  
+**Goal**: In 1.5 hours, we'd like to reproduce a plot [Deadest Names published on FiveThirtyEight](https://fivethirtyeight.com/features/how-to-tell-someones-age-when-all-you-know-is-her-name/). You may find the original prompt [here](files/Lab_1_question.pdf).
+
+<div class="column-left">
+\btwocol
+#### Original
+Placeholder - pic 1
+\columnbreak
+<div class="column-right">
+#### Duplicate
+Placeholder - pic 2
+\etwocol
+</div>  
+
+# English Learning
+
+### Course Offerings
+
+#### 美国人都会的2000词
+
+#### 美音开口练
+
+#### TOEFL口语话题王
+
+#### 常用短语句型听力初级
