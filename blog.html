@@ -403,20 +403,67 @@ div.tocify {
 <h1>Data Science</h1>
 <div id="r" class="section level3">
 <h3>R</h3>
-<div id="beginners-guide-recreating-deadest-names-plot-of-fivethirtyeight-using-ggplot2" class="section level4">
-<h4>Beginner’s Guide: Recreating “Deadest Names” Plot of FiveThirtyEight Using <code>ggplot2</code></h4>
-<p><strong>Intro</strong>: This is an R lab project from Data Science 1 of the master’s program in biostats and data science at Weill Cornell, taught by <a href="https://emsweene.github.io/index.html">Dr. Elizabeth Sweeney</a>.<br />
-<strong>Goal</strong>: In 1.5 hours, we’d like to reproduce a plot <a href="https://fivethirtyeight.com/features/how-to-tell-someones-age-when-all-you-know-is-her-name/">Deadest Names published on FiveThirtyEight</a>. You may find the original prompt <a href="files/Lab_1_question.pdf">here</a>.</p>
+<div id="beginners-guide-recreating-deadest-names-plot-using-ggplot2" class="section level4">
+<h4>Beginner’s Guide: Recreating “Deadest Names” Plot Using <code>ggplot2</code></h4>
+<p>(Tuesday, 2019-10-22)</p>
+<p><strong>Intro</strong><br />
+This is an R lab project from Data Science 1 of the master’s program in biostats and data science at Weill Cornell, taught by <a href="https://emsweene.github.io/index.html">Dr. Elizabeth Sweeney</a>. This tutorial is created for beginner R users with basic knowledge of R Studio IDE, data types, and visualization. Please refer to R Documentation if you’re uncertain of any functions. Google search results (particularly StackOverflow is also your friend.)</p>
+<p><strong>Goal</strong><br />
+In 1.5 hours, we’d like to reproduce one of the plots, <a href="https://fivethirtyeight.com/features/how-to-tell-someones-age-when-all-you-know-is-her-name/">Deadest Names</a>, published on <a href="https://fivethirtyeight.com">FiveThirtyEight</a>. You may find the original prompt <a href="files/Lab_1_question.pdf">here</a>.</p>
 <div class="column-left">
+<p>Original plot<br />
+<img src="images/silver-feature-names-dead2.png" width="288" /></p>
+</div>
 
-</div>
-<div id="original" class="section level4">
-<h4>Original</h4>
-Placeholder - pic 1 
 <div class="column-right">
-<h4 id="duplicate">Duplicate</h4>
-<p>Placeholder - pic 2 </p>
+<p>R Duplicate using <code>ggplot2</code><br />
+<img src="images/silver-feature-names-dead2.png" width="288" /></p>
 </div>
+<p><strong>Step 1. Data Prep</strong><br />
+First, we load a library, <em>mdsr</em>, using <code>library()</code>. Remember to install the package using <code>install.packages("mdsr")</code> if the package is not in your R library. You may need to do this installation only once. Do the same to load <em>tidyverse</em> (we’ll use <em>dplyr</em> and <em>ggplot2</em> mapped in <em>tidyverse</em>). Note that in a code chunk, pond sign # leads a comment line (R will not execute).<br />
+We will then assign a data table <code>BabynamesDist</code> from the function <code>make_babynames_dist()</code>.</p>
+<pre class="r"><code># load R package &quot;mdsr&quot;
+library(mdsr)
+library(tidyverse)
+# Create our data table
+BabynamesDist &lt;- make_babynames_dist()</code></pre>
+<p>Once you load the data, take a look at what it is like. We’ll use <code>glimpse()</code> from the package <em>dlpyr</em> and <code>summary()</code> from base R. Pay attention to the data class in each column. How many rows and columns are there?</p>
+<pre class="r"><code>glimpse(BabynamesDist)</code></pre>
+<pre><code>## Observations: 1,639,722
+## Variables: 9
+## $ year            &lt;dbl&gt; 1900, 1900, 1900, 1900, 1900, 1900, 1900, 1900...
+## $ sex             &lt;chr&gt; &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;...
+## $ name            &lt;chr&gt; &quot;Mary&quot;, &quot;Helen&quot;, &quot;Anna&quot;, &quot;Margaret&quot;, &quot;Ruth&quot;, &quot;...
+## $ n               &lt;int&gt; 16706, 6343, 6114, 5304, 4765, 4096, 3920, 389...
+## $ prop            &lt;dbl&gt; 0.05257559, 0.01996211, 0.01924142, 0.01669226...
+## $ alive_prob      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0...
+## $ count_thousands &lt;dbl&gt; 16.706, 6.343, 6.114, 5.304, 4.765, 4.096, 3.9...
+## $ age_today       &lt;dbl&gt; 114, 114, 114, 114, 114, 114, 114, 114, 114, 1...
+## $ est_alive_today &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0...</code></pre>
+<pre class="r"><code>summary(BabynamesDist)</code></pre>
+<pre><code>##       year          sex                name                 n          
+##  Min.   :1900   Length:1639722     Length:1639722     Min.   :    5.0  
+##  1st Qu.:1950   Class :character   Class :character   1st Qu.:    7.0  
+##  Median :1980   Mode  :character   Mode  :character   Median :   12.0  
+##  Mean   :1972                                         Mean   :  193.2  
+##  3rd Qu.:1998                                         3rd Qu.:   32.0  
+##  Max.   :2010                                         Max.   :99686.0  
+##       prop             alive_prob     count_thousands     age_today     
+##  Min.   :2.260e-06   Min.   :0.0000   Min.   : 0.0050   Min.   :  4.00  
+##  1st Qu.:3.880e-06   1st Qu.:0.8065   1st Qu.: 0.0070   1st Qu.: 16.00  
+##  Median :7.200e-06   Median :0.9678   Median : 0.0120   Median : 34.00  
+##  Mean   :1.293e-04   Mean   :0.8052   Mean   : 0.1932   Mean   : 42.01  
+##  3rd Qu.:2.095e-05   3rd Qu.:0.9891   3rd Qu.: 0.0320   3rd Qu.: 64.00  
+##  Max.   :6.062e-02   Max.   :0.9943   Max.   :99.6860   Max.   :114.00  
+##  est_alive_today   
+##  Min.   :    0.00  
+##  1st Qu.:    4.97  
+##  Median :    8.93  
+##  Mean   :  150.91  
+##  3rd Qu.:   24.48  
+##  Max.   :80399.05</code></pre>
+<p><strong>Step 2. Get top 10 names for females and males respectively.</strong></p>
+<hr />
 </div>
 </div>
 </div>

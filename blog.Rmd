@@ -16,22 +16,60 @@ editor_options:
 
 ### R
 
-#### Beginner's Guide: Recreating "Deadest Names" Plot of FiveThirtyEight Using `ggplot2`
+#### Beginner's Guide: Recreating "Deadest Names" Plot Using `ggplot2`
+(Tuesday, 2019-10-22)
 
-**Intro**: This is an R lab project from Data Science 1 of the master's program in biostats and data science at Weill Cornell, taught by [Dr. Elizabeth Sweeney](https://emsweene.github.io/index.html).  
-**Goal**: In 1.5 hours, we'd like to reproduce a plot [Deadest Names published on FiveThirtyEight](https://fivethirtyeight.com/features/how-to-tell-someones-age-when-all-you-know-is-her-name/). You may find the original prompt [here](files/Lab_1_question.pdf).
+**Intro**  
+This is an R lab project from Data Science 1 of the master's program in biostats and data science at Weill Cornell, taught by [Dr. Elizabeth Sweeney](https://emsweene.github.io/index.html). This tutorial is created for beginner R users with basic knowledge of R Studio IDE, data types, and  visualization. Please refer to R Documentation if you're uncertain of any functions. Google search results (particularly StackOverflow is also your friend.)  
+
+**Goal**  
+In 1.5 hours, we'd like to reproduce one of the plots, [Deadest Names](https://fivethirtyeight.com/features/how-to-tell-someones-age-when-all-you-know-is-her-name/), published on [FiveThirtyEight](https://fivethirtyeight.com). You may find the original prompt [here](files/Lab_1_question.pdf).  
 
 <div class="column-left">
 \btwocol
-#### Original
-Placeholder - pic 1
+
+Original plot  
+```{r original 2, echo=FALSE}
+library(knitr)
+include_graphics("images/silver-feature-names-dead2.png")
+```
+
+</div>
 \columnbreak
 <div class="column-right">
-#### Duplicate
-Placeholder - pic 2
+
+R Duplicate using `ggplot2`  
+```{r duplicate 2, echo=FALSE}
+library(knitr)
+include_graphics("images/silver-feature-names-dead2.png")
+```
+  
 \etwocol
 </div>  
 
+
+**Step 1. Data Prep**  
+First, we load a library, *mdsr*, using `library()`. Remember to install the package using `install.packages("mdsr")` if the package is not in your R library. You may need to do this installation only once. Do the same to load *tidyverse* (we'll use *dplyr* and *ggplot2* mapped in *tidyverse*). Note that in a code chunk, pond sign # leads a comment line (R will not execute).  
+We will then assign a data table `BabynamesDist` from the function `make_babynames_dist()`. 
+```{r, message=FALSE, results='hide'}
+# load R package "mdsr"
+library(mdsr)
+library(tidyverse)
+# Create our data table
+BabynamesDist <- make_babynames_dist()
+```
+
+Once you load the data, take a look at what it is like. We'll use `glimpse()` from the package *dlpyr* and `summary()` from base R. Pay attention to the data class in each column. How many rows and columns are there?   
+
+```{r}
+glimpse(BabynamesDist)
+summary(BabynamesDist)
+```
+
+**Step 2. Get top 10 names for females and males respectively.**
+
+
+*******************
 # English Learning
 
 ### Course Offerings

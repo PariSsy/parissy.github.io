@@ -13,4 +13,5 @@ My primary tools for data science are **R** (including `ggplot2` and RMarkdown),
 
 From 2014, I have been teaching English online for Chinese English-as-a-second-language (ESL) students, primarily pro bono, on various platforms including Hujiang CCTalk. Here're two of my profiles: 1. [Sample open course](http://www.cctalk.com/teacher/28752625/), and 2. [Sample paid course](https://www.cctalk.com/m/u/28752625). I am very interested in Education Technology (**EdTech**) and Online Learning (**E-Learning**).
 
-My resume and publications can be found [here](files/201910_Resume_ParisZhang-2p.pdf). One of my past projects, a mobile app [MyGeneRank](https://mygenerank.scripps.edu/), can auto-calculate your genetic risk. Come have a look!
+My resume and publications can be found [here](files/201910_Resume_ParisZhang-2p.pdf).  
+One of my past projects, a mobile app [MyGeneRank](https://mygenerank.scripps.edu/), can auto-calculate your genetic risk. Come have a look!
