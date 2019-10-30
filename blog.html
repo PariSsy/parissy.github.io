@@ -12,7 +12,7 @@
 
 
 
-<title>Blog</title>
+<title>blog.utf8.md</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -394,22 +394,24 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Blog</h1>
 
 </div>
 
 
-<div id="data-science" class="section level1">
-<h1>Data Science</h1>
-<div id="r" class="section level3">
-<h3>R</h3>
-<div id="beginners-guide-recreating-deadest-names-plot-using-ggplot2" class="section level4">
-<h4>Beginner’s Guide: Recreating “Deadest Names” Plot Using <code>ggplot2</code></h4>
+<div id="blog---data-science" class="section level1">
+<h1>Blog - Data Science</h1>
+<div id="r" class="section level2">
+<h2>R</h2>
+<div id="beginners-guide-recreating-deadest-names-using-ggplot2" class="section level3">
+<h3>Beginner’s Guide: Recreating “Deadest Names” Using <code>ggplot2</code></h3>
 <p>(Tuesday, 2019-10-22)</p>
-<p><strong>Intro</strong><br />
-This is an R lab project from Data Science 1 of the master’s program in biostats and data science at Weill Cornell, taught by <a href="https://emsweene.github.io/index.html">Dr. Elizabeth Sweeney</a>. This tutorial is created for beginner R users with basic knowledge of R Studio IDE, data types, and visualization. Please refer to R Documentation if you’re uncertain of any functions. Google search results (particularly StackOverflow is also your friend.)</p>
-<p><strong>Goal</strong><br />
-In 1.5 hours, we’d like to reproduce one of the plots, <a href="https://fivethirtyeight.com/features/how-to-tell-someones-age-when-all-you-know-is-her-name/">Deadest Names</a>, published on <a href="https://fivethirtyeight.com">FiveThirtyEight</a>. You may find the original prompt <a href="files/Lab_1_question.pdf">here</a>.</p>
+<div id="intro" class="section level4">
+<h4>Intro</h4>
+<p>This is an R lab project from Data Science 1 of the master’s program in biostats and data science at Weill Cornell, taught by <a href="https://emsweene.github.io/index.html">Dr. Elizabeth Sweeney</a>. This tutorial is created for beginner R users with basic knowledge of R Studio IDE, data types, and visualization. Please refer to R Documentation if you’re uncertain of any functions. Google search results, particularly StackOverflow, are also your friends.</p>
+</div>
+<div id="goal" class="section level4">
+<h4>Goal</h4>
+<p>In 1.5 hours, we’d like to reproduce one of the plots, <a href="https://fivethirtyeight.com/features/how-to-tell-someones-age-when-all-you-know-is-her-name/">Deadest Names</a>, published on <a href="https://fivethirtyeight.com">FiveThirtyEight</a>. You may find the original prompt <a href="files/Lab_1_question.pdf">here</a>.</p>
 <div class="column-left">
 <p>Original plot<br />
 <img src="images/silver-feature-names-dead2.png" width="288" /></p>
@@ -417,17 +419,19 @@ In 1.5 hours, we’d like to reproduce one of the plots, <a href="https://fiveth
 
 <div class="column-right">
 <p>R Duplicate using <code>ggplot2</code><br />
-<img src="images/silver-feature-names-dead2.png" width="288" /></p>
+<img src="images/ggplot-deadeast_names.png" width="1040" /></p>
 </div>
-<p><strong>Step 1. Data Prep</strong><br />
-First, we load a library, <em>mdsr</em>, using <code>library()</code>. Remember to install the package using <code>install.packages("mdsr")</code> if the package is not in your R library. You may need to do this installation only once. Do the same to load <em>tidyverse</em> (we’ll use <em>dplyr</em> and <em>ggplot2</em> mapped in <em>tidyverse</em>). Note that in a code chunk, pond sign # leads a comment line (R will not execute).<br />
+</div>
+<div id="step-1.-data-prep" class="section level4">
+<h4>Step 1. Data prep</h4>
+<p>First, we load a library, <em>mdsr</em>, using <code>library()</code>. Remember to install the package using <code>install.packages("mdsr")</code> if the package is not in your R library. You may need to do this installation only once. Do the same to load <em>tidyverse</em> (we’ll use <em>dplyr</em> and <em>ggplot2</em> mapped in <em>tidyverse</em>). Note that in a code chunk, pond sign # leads a comment line (R will not execute).<br />
 We will then assign a data table <code>BabynamesDist</code> from the function <code>make_babynames_dist()</code>.</p>
 <pre class="r"><code># load R package &quot;mdsr&quot;
 library(mdsr)
 library(tidyverse)
 # Create our data table
 BabynamesDist &lt;- make_babynames_dist()</code></pre>
-<p>Once you load the data, take a look at what it is like. We’ll use <code>glimpse()</code> from the package <em>dlpyr</em> and <code>summary()</code> from base R. Pay attention to the data class in each column. How many rows and columns are there?</p>
+<p>Once you load the data, take a look at what it is like. We’ll use <code>glimpse()</code> from the package <em>dplyr</em> and <code>summary()</code> from base R. Pay attention to the data class of each column. How many rows and columns are there?</p>
 <pre class="r"><code>glimpse(BabynamesDist)</code></pre>
 <pre><code>## Observations: 1,639,722
 ## Variables: 9
@@ -462,27 +466,219 @@ BabynamesDist &lt;- make_babynames_dist()</code></pre>
 ##  Mean   :  150.91  
 ##  3rd Qu.:   24.48  
 ##  Max.   :80399.05</code></pre>
-<p><strong>Step 2. Get top 10 names for females and males respectively.</strong></p>
+</div>
+<div id="step-2.-get-top-10-names" class="section level4">
+<h4>Step 2. Get top 10 names</h4>
+<p>For females and males respectively.</p>
+<p>Now, we will create two subsets of <code>BabynamesDist</code> that contain top 10 names for females and males respectively. We’ll use pipe operators to generate the two tables. A good practice is to use <code>-&gt; names_fem_10</code> at the end of the pipe, but for now, we’ll do it the traditional way.</p>
+<ol style="list-style-type: decimal">
+<li><code>filter(sex == "F")</code> - select only females;<br />
+</li>
+<li><code>group_by(name)</code> - grouped by name (consider this as a temporary holder for many name groups);<br />
+</li>
+<li><code>summarise(..)</code> - based on each name group, create 2 columns that summarise each group data;<br />
+</li>
+<li><code>filter(N &gt;= 100000)</code> - select only names with more than 100,000 observations;<br />
+</li>
+<li><code>arrange(desc(est_percent_dead))</code> - order the data by the column <code>est_percent_dead</code>, high to low;<br />
+</li>
+<li><code>head(10)</code> - select the first 10 names;<br />
+</li>
+<li><code>mutate(sex = "Female")</code> - create a new column indicating the sex.</li>
+</ol>
+<pre class="r"><code># For females
+names_fem_10 &lt;- BabynamesDist %&gt;%
+  filter(sex == &quot;F&quot;) %&gt;%
+  group_by(name) %&gt;%
+  summarise(N = sum(n),
+            est_percent_dead = 1 - sum(est_alive_today) / N) %&gt;%
+  filter(N &gt;= 100000) %&gt;%
+  arrange(desc(est_percent_dead)) %&gt;%
+  head(10) %&gt;%
+  mutate(sex = &quot;Female&quot;)</code></pre>
+<p>The top 10 female names, and their respective number of observations, and estimated percentage of death are as follows. They don’t look exactly like that of the original post, but are pretty similar, so we’ll just comply!</p>
+<pre class="r"><code>names_fem_10</code></pre>
+<pre><code>## # A tibble: 10 x 4
+##    name          N est_percent_dead sex   
+##    &lt;chr&gt;     &lt;int&gt;            &lt;dbl&gt; &lt;chr&gt; 
+##  1 Gertrude 145703            0.785 Female
+##  2 Myrtle   108943            0.766 Female
+##  3 Florence 284953            0.727 Female
+##  4 Agnes    134943            0.721 Female
+##  5 Viola    116676            0.717 Female
+##  6 Bessie   130155            0.717 Female
+##  7 Ethel    232249            0.715 Female
+##  8 Pearl    123063            0.714 Female
+##  9 Mildred  433359            0.713 Female
+## 10 Minnie   112045            0.696 Female</code></pre>
+<p>Similarly, we’ll create a table for males.</p>
+<pre class="r"><code># For males
+names_male_10 &lt;- BabynamesDist %&gt;%
+  filter(sex == &quot;M&quot;) %&gt;%
+  group_by(name) %&gt;%
+  summarise(N = sum(n),
+            est_percent_dead = 1 - sum(est_alive_today) / N) %&gt;%
+  filter(N &gt;= 100000) %&gt;%
+  arrange(desc(est_percent_dead)) %&gt;%
+  head(10) %&gt;%
+  mutate(sex = &quot;Male&quot;)</code></pre>
+<p>Now have a look at these male names:</p>
+<pre class="r"><code>names_male_10</code></pre>
+<pre><code>## # A tibble: 10 x 4
+##    name          N est_percent_dead sex  
+##    &lt;chr&gt;     &lt;int&gt;            &lt;dbl&gt; &lt;chr&gt;
+##  1 Elmer    116855            0.696 Male 
+##  2 Chester  114384            0.607 Male 
+##  3 Clarence 280530            0.595 Male 
+##  4 Herbert  217299            0.592 Male 
+##  5 Harry    374544            0.590 Male 
+##  6 Herman   127031            0.587 Male 
+##  7 Harold   538675            0.577 Male 
+##  8 Earl     274590            0.561 Male 
+##  9 Floyd    146686            0.560 Male 
+## 10 Fred     312274            0.559 Male</code></pre>
+</div>
+<div id="step-3.-merge-tables" class="section level4">
+<h4>Step 3. Merge tables</h4>
+<p>Now we’ll merge the female and male table, and modify the data a little bit to better cater to reproduce the plot. We’ll use <code>rbind()</code> function to combine the two tables by row; i.e., the new table contains the female table as the first 10 rows, and the male table as the next 10 rows.</p>
+<p>Sometimes <code>ggplot2</code> orders our data in a strange way; to avoid this, we will <em>lock</em> the order of our data using <code>factor()</code>.</p>
+<pre class="r"><code># Merge two tables
+names_top_20 &lt;- rbind(names_fem_10, names_male_10)
+## Lock the factor order of names
+names_top_20$name &lt;- factor(names_top_20$name, levels = rev(names_top_20$name))</code></pre>
+<p>Since the original plot is showing the percentage, not the probability, we will multiply our percentage column by <span class="math inline">\(100\)</span> and then round to 1 decimal point. Also, only the first name in each gender group has a percentage sign “%” attached to the number, and we will create a <code>label</code> column accordingly, too.</p>
+<pre class="r"><code># Create a percent label
+names_top_20 &lt;- names_top_20 %&gt;%
+  mutate(label = round(est_percent_dead * 100, 1))
+## Add &quot;%&quot; sign
+for (i in c(1,11)){
+  names_top_20[i,&quot;label&quot;] &lt;- paste(names_top_20[i,&quot;label&quot;], &quot;%&quot;, sep = &quot;&quot;)
+}</code></pre>
+<p>Now have a look at the final data table, and we’re ready to go! Note that interestingly, the percentage of the least deadest name of females is slightly higher than the percentage of the most deadest name of males. As a result, we have a natural ordered list of names by females and then by males.</p>
+<pre class="r"><code>names_top_20</code></pre>
+<pre><code>## # A tibble: 20 x 5
+##    name          N est_percent_dead sex    label
+##    &lt;fct&gt;     &lt;int&gt;            &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;
+##  1 Gertrude 145703            0.785 Female 78.5%
+##  2 Myrtle   108943            0.766 Female 76.6 
+##  3 Florence 284953            0.727 Female 72.7 
+##  4 Agnes    134943            0.721 Female 72.1 
+##  5 Viola    116676            0.717 Female 71.7 
+##  6 Bessie   130155            0.717 Female 71.7 
+##  7 Ethel    232249            0.715 Female 71.5 
+##  8 Pearl    123063            0.714 Female 71.4 
+##  9 Mildred  433359            0.713 Female 71.3 
+## 10 Minnie   112045            0.696 Female 69.6 
+## 11 Elmer    116855            0.696 Male   69.6%
+## 12 Chester  114384            0.607 Male   60.7 
+## 13 Clarence 280530            0.595 Male   59.5 
+## 14 Herbert  217299            0.592 Male   59.2 
+## 15 Harry    374544            0.590 Male   59   
+## 16 Herman   127031            0.587 Male   58.7 
+## 17 Harold   538675            0.577 Male   57.7 
+## 18 Earl     274590            0.561 Male   56.1 
+## 19 Floyd    146686            0.560 Male   56   
+## 20 Fred     312274            0.559 Male   55.9</code></pre>
+</div>
+<div id="step-4.-the-fun-part" class="section level4">
+<h4>Step 4. The fun part!</h4>
+<p>Although I put comments in the code chunk, I’d like to illustrate a little bit further on a few “tricks” to make our ggplot as close to the original plot as possible.</p>
+<ol style="list-style-type: decimal">
+<li><code>geom_text()</code>: we use this function to add labels to the end of each colored bar. We set <code>aes()</code> to apply <code>label</code> column from our data table as our labels. <code>vjust()</code> and <code>hjust</code> adjust the positions of the labels vertically and horizontally, respectively. Finally, <code>size</code> sets the font size of our labels. You may need to adjust these values to tailor to the desired effects.</li>
+<li><code>scale_y_continuous(limits = c(0, 0.82))</code>: here we expand the range of y-axis (which is x-axis after flipping the coordinates) because the default range does not have enough space for our top label (“%” will be omitted). We use <code>y_continuous</code> because <code>est_percent_dead</code> is a continuous variable. Here you may also adjust the maximum value of the range (now it’s 0.82) to tailor your needs.</li>
+<li><code>scale_x_discrete(limits = ...)</code>: the original post has an empty bar between female and male names; here we use the <code>scale_x_discrete</code> function to do the trick. Note that an empty space, " ", is inserted between two name groups. We use <code>discrete</code> instead of <code>continuous</code> because <code>name</code> is a discrete variable.</li>
+<li>In <code>theme</code>, we use <code>aspect.ratio</code> to make our plot narrower.</li>
+<li>In <code>labs</code>, we use <code>caption</code> to add small notations to the lower right corner of the plot.</li>
+<li><code>coord_flip</code>: after everything we’ve done, we finalize the plot using this function to <em>flip</em> the x-axis and y-axis.</li>
+</ol>
+<pre class="r"><code>(ggplot(data = names_top_20, ## use the data we just created for plotting
+       aes(x = name, 
+           y = est_percent_dead,
+           fill = sex)) + ## color the plot by sex
+  geom_col() + ## we&#39;re making a bar plot
+  geom_text(aes(label = label), ## Add labels to each bar using our label column
+            vjust = 0.5, ## Adjust the position of labels so they are at the end of each bar
+            hjust = -0.1,
+            size = 3) +
+  scale_fill_manual(values = c(&#39;#e1ad01&#39;,&#39;#1C86EE&#39;)) + ## fill the bars using matching colors
+  scale_y_continuous(limits = c(0, 0.82)) + ## expand the background panel vertically
+  scale_x_discrete(limits = c(levels(names_top_20$name)[1:10],
+                              &quot; &quot;, ## create the empty line
+                              levels(names_top_20$name)[11:20])) +
+  theme(aspect.ratio = 0.75, ## set the height:width ratio as close as to the original plot
+        legend.position = &quot;none&quot;, ## remove any element that&#39;s not on the original plot
+        panel.grid = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank()) +
+  labs(title = &quot;Deadest Names&quot;,
+       subtitle = &quot;Estimated percentage of Americans with a given name born since\n1900 who were dead as of Jan. 1, 2014&quot;, ## label the plot with two lines
+       caption = &quot;SOURCE: SOCIAL SECURITY ADMINISTRATION&quot;) + ## label at the caption position
+  xlab(NULL) +
+  ylab(NULL) +
+  coord_flip() -&gt; p) ## flip coordinates, and assign the plot to p</code></pre>
+<p><img src="blog_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>Voila!</p>
 <hr />
 </div>
 </div>
 </div>
-<div id="english-learning" class="section level1">
-<h1>English Learning</h1>
-<div id="course-offerings" class="section level3">
-<h3>Course Offerings</h3>
-<div id="section" class="section level4">
-<h4>美国人都会的2000词</h4>
 </div>
-<div id="section-1" class="section level4">
-<h4>美音开口练</h4>
+<div id="blog---english-learning" class="section level1">
+<h1>Blog - English Learning</h1>
+<div id="section" class="section level3">
+<h3>美国人都会的2000词</h3>
+<ul>
+<li><span class="math inline">\(Title\)</span>: 2000 Words that Every American Knows<br />
+<a href="http://www.cctalk.com/m/program/1501133815976337">Course archive</a><br />
+</li>
+<li><span class="math inline">\(Year\)</span>: 2017 - 2018<br />
+</li>
+<li><span class="math inline">\(Length\)</span>: 33 lectures<br />
+</li>
+<li><span class="math inline">\(Duration\)</span>: 70 min/ecture</li>
+</ul>
 </div>
-<div id="toefl" class="section level4">
-<h4>TOEFL口语话题王</h4>
+<div id="section-1" class="section level3">
+<h3>美音开口练</h3>
+<ul>
+<li><span class="math inline">\(Title\)</span>: American Accent Training<br />
+<a href="https://www.cctalk.com/m/program/1501132424921353">Course archive</a><br />
+</li>
+<li><span class="math inline">\(Year\)</span>: 2016 - 2018<br />
+</li>
+<li><span class="math inline">\(Length\)</span>: 24 lectures<br />
+</li>
+<li><span class="math inline">\(Duration\)</span>: 55 min/ecture</li>
+</ul>
 </div>
-<div id="section-2" class="section level4">
-<h4>常用短语句型听力初级</h4>
+<div id="toefl" class="section level3">
+<h3>TOEFL口语话题王</h3>
+<ul>
+<li><span class="math inline">\(Title\)</span>: TOEFL Speaking and Logical Thinking<br />
+<a href="https://www.cctalk.com/m/program/1501134195399768">Course archive</a><br />
+</li>
+<li><span class="math inline">\(Year\)</span>: 2018<br />
+</li>
+<li><span class="math inline">\(Series\)</span>: 3<br />
+</li>
+<li><span class="math inline">\(Length\)</span>: 35 lectures<br />
+</li>
+<li><span class="math inline">\(Duration\)</span>: 55 min/lecture</li>
+</ul>
 </div>
+<div id="section-2" class="section level3">
+<h3>常用短语句型听力初级</h3>
+<ul>
+<li><span class="math inline">\(Title\)</span>: Common Words and Phrases, Listening Practices - Level 1<br />
+<a href="http://www.cctalk.com/course/160161700808/">Course archive</a><br />
+</li>
+<li><span class="math inline">\(Time\)</span>: 2016-01-17 to 2016-11-13<br />
+</li>
+<li><span class="math inline">\(Length\)</span>: 40 lectures<br />
+</li>
+<li><span class="math inline">\(Duration\)</span>: 55 min/lecture</li>
+</ul>
 </div>
 </div>
 
